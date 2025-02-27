@@ -33,10 +33,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Build application
+        run: docker compose build
+
       - name: List images
         run: docker images
 
+      - name: Scan my-app image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: 'django_testapp-web'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
       - name: Build and deploy application
-        run: |
-          docker compose build
-          docker compose up -d
+        run: docker compose up -d
