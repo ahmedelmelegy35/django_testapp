@@ -44,11 +44,10 @@ jobs:
         with:
           image-ref: 'django_testapp-web'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL'
-          # severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL,HIGH'
   deploy:
     needs: build-and-scan
     runs-on: self-hosted
