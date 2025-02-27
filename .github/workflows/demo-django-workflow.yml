@@ -49,6 +49,11 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trivy report
+          path: ./trivy-report.json
   deploy:
     needs: build-and-scan
     runs-on: self-hosted
