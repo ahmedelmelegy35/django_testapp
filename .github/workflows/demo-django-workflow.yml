@@ -43,8 +43,8 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'django_testapp-web'
-          output: trivy-report.sarif
-          format: 'sarif'
+          output: trivy-report.txt
+          format: 'table'
           exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
@@ -52,8 +52,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: trivy report
-          path: ./trivy-report.sarif
+          name: trivy-report
+          path: ./trivy-report.txt
   deploy:
     needs: build-and-scan
     runs-on: self-hosted
