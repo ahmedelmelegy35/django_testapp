@@ -51,6 +51,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
 
       - uses: actions/upload-artifact@v4
+        name: Upload trivy report
         with:
           name: trivy-report
           path: ./trivy-report.txt
