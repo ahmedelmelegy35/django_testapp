@@ -31,7 +31,7 @@ jobs:
         run: python manage.py test
 
   build-and-scan-image:
-    needs: setup
+    needs: ci-checks
     runs-on: self-hosted
     defaults:
       run:
