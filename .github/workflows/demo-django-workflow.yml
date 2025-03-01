@@ -28,7 +28,7 @@ jobs:
           pip install pyjwt
 
       - name: Run Django tests
-        run: python manage.py test api
+        run: python manage.py test
 
   build-and-scan:
     needs: setup
