@@ -7,7 +7,7 @@ on:
   #     - main
 
 jobs:
-  setup:
+  ci-checks:
     runs-on: self-hosted
     defaults:
       run:
@@ -30,7 +30,7 @@ jobs:
       - name: Run Django tests
         run: python manage.py test
 
-  build-and-scan:
+  build-and-scan-image:
     needs: setup
     runs-on: self-hosted
     defaults:
