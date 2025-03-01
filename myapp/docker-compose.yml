@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    # Uncomment the following line to run migrations automatically on container start:
+    # command: sh -c "python manage.py migrate && gunicorn myapp.wsgi:application --bind 0.0.0.0:8000"

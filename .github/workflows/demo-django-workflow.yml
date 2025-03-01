@@ -9,7 +9,9 @@ on:
 jobs:
   setup:
     runs-on: self-hosted
-
+    defaults:
+      run:
+        working-directory: ./myapp
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,7 +30,9 @@ jobs:
   build-and-scan:
     needs: setup
     runs-on: self-hosted
-
+    defaults:
+      run:
+        working-directory: ./myapp
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,7 +62,9 @@ jobs:
   deploy:
     needs: build-and-scan
     runs-on: self-hosted
-
+    defaults:
+      run:
+        working-directory: ./myapp
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
