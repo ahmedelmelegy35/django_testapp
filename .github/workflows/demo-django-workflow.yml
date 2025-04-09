@@ -47,31 +47,45 @@ jobs:
       - name: List images
         run: docker images
 
-      - name: Scan my-app image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: 'myapp-web'
-          output: trivy-report.txt
-          format: 'table'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+      # - name: Scan my-app image with Trivy
+      #   uses: aquasecurity/trivy-action@0.28.0
+      #   with:
+      #     image-ref: 'myapp-web'
+      #     output: trivy-report.txt
+      #     format: 'table'
+      #     exit-code: '0'
+      #     ignore-unfixed: true
+      #     vuln-type: 'os,library'
+      #     severity: 'CRITICAL,HIGH'
 
-      - uses: actions/upload-artifact@v4
-        name: Upload trivy report
-        with:
-          name: trivy-report
-          path: ./trivy-report.txt
-  deploy:
+      # - uses: actions/upload-artifact@v4
+      #   name: Upload trivy report
+      #   with:
+      #     name: trivy-report
+      #     path: ./trivy-report.txt
+
+  push-to-ecr:
     needs: build-and-scan-image
     runs-on: self-hosted
     defaults:
       run:
         working-directory: ./myapp
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+  # deploy:
+  #   needs: build-and-scan-image
+  #   runs-on: self-hosted
+  #   defaults:
+  #     run:
+  #       working-directory: ./myapp
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Build and deploy application
-        run: docker compose up -d
+  #     - name: Build and deploy application
+  #       run: docker compose up -d
