@@ -50,7 +50,7 @@ jobs:
       - name: Scan my-app image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'django_testapp-web'
+          image-ref: 'myapp-web'
           output: trivy-report.txt
           format: 'table'
           exit-code: '0'
